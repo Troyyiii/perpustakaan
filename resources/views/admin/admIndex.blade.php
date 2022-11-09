@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Perpustakaan Admin | Create Mahasiswa</title>
+    <title>Perpustakaan Admin | Home</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -25,7 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-                <a href="{{ route('admIndex') }}" class="navbar-brand">
+                <a href="{{ route('admIndex') }} " class="navbar-brand">
                     {{-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
                     <span class="brand-text font-weight-light">E-Library</span>
                 </a>
@@ -145,71 +145,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="row">
                         <div class="col">
                             <div class="card card-primary card-outline">
-                                <div class="card-header text-center">
-                                    <h2>Tambahkan Data Mahasiswa</h2>
+                                <div class="card-header">
+                                    <h2>Selamat Datang Admin</h2>
                                 </div>
-                                <div class="card-body ">
-                                    <div class="container-float mb-3">
-                                        <form action="{{ url()->previous() }}">
-                                            @csrf
-                                            <button type="submit button" class="btn btn-secondary">Kembali</button>
-                                        </form>
-                                    </div>
-                                    <form action="{{ route('storeMhs') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label for="nrp" class="form-label">NRP: </label>
-                                            <input type="text" name="nrp" id="nrp" class="form-control" required>
-                                        </div>
+                                <div class="card-body">
+                                    <h6 class="card-title">Database Perpustakaan</h6>
 
-                                        <div class="mb-3">
-                                            <label for="nama" class="form-label">Nama: </label>
-                                            <input type="text" name="nama" id="nama" class="form-control" required>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="kelas" class="form-label">Kelas: </label>
-                                            <input type="text" name="kelas" id="kelas" class="form-control" required>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="no_hp" class="form-label">No Handpone: </label>
-                                            <input type="text" name="no_hp" id="no_hp" class="form-control" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="tahun_angkatan" class="form-label">Tahun Angkatan: </label>
-                                            <input type="text" name="tahun_angkatan" id="tahun_angkatan"
-                                                class="form-control" required>
-                                        </div>
-
-                                        <div class="row row-cols-auto mt-4">
-                                            <div class="col">
-                                                <button type="submit" class="btn btn-success">Simpan</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <p class="card-text">Tambahkan, edit, lihat, dan hapus data</p>
+                                    <a href="{{ route('admMhsIndex') }}" class="btn btn-primary">Database Mahasiswa</a>
+                                    <a href="{{ route('admBukuIndex') }}" class="btn btn-primary">Database Buku</a>
                                 </div>
                             </div>
                         </div>
+                        <!-- /.col-md-6 -->
                     </div>
-                </div>
-                <!-- /.col-md-6 -->
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
 
-    <!-- Main Footer -->
-    {{-- <footer class="main-footer">
+        <!-- Main Footer -->
+        {{-- <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
                 Anything you want

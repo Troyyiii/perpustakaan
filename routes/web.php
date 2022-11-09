@@ -20,6 +20,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//login & register
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/loginCheck', [LoginController::class, 'loginCheck'])->name('loginCheck');
+Route::get('/register', [LoginController::class, 'register'])->name('register');
+Route::post('/registerStore', [LoginController::class, 'registerStore'])->name('registerStore');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+//indexadmin
+Route::get('/admIndex', function () {
+    return view('admin\admIndex');
+})->name('admIndex')->middleware('auth');
+
 //crud mahasiswa
 Route::get('/admMhsIndex', [MahasiswaController::class, 'index'])->name('admMhsIndex')->middleware('auth');
 Route::get('/mhsCreate', [MahasiswaController::class, 'create'])->name('mhsCreate')->middleware('auth');
@@ -35,10 +47,3 @@ Route::post('/storeBuku', [BukuController::class, 'store'])->name('storeBuku')->
 Route::get('/showBuku/{id}', [BukuController::class, 'show'])->name('showBuku')->middleware('auth');
 Route::post('/updateBuku/{id}', [BukuController::class, 'update'])->name('updateBuku')->middleware('auth');
 Route::get('/deleteBuku/{id}', [BukuController::class, 'destroy'])->name('deleteBuku')->middleware('auth');
-
-//login & register
-Route::get('/login', [LoginController::class, 'login'])->name('login');
-Route::post('/loginCheck', [LoginController::class, 'loginCheck'])->name('loginCheck');
-Route::get('/register', [LoginController::class, 'register'])->name('register');
-Route::post('/registerStore', [LoginController::class, 'registerStore'])->name('registerStore');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

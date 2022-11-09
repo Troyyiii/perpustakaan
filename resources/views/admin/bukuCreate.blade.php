@@ -1,70 +1,231 @@
-<!doctype html>
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Perpustakaan-Admin | Create Buku</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Perpustakaan Admin | Create Buku</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('template/dist/css/adminlte.min.css') }}">
 </head>
 
-<body>
-    <div class="container p-5">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="text-center p-3">
-                            <h1>Tambahkan Data Buku</h1>
-                        </div>
-                        <form action="{{ route('storeBuku') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="judul" class="form-label">Judul: </label>
-                                <input type="text" name="judul" id="judul" class="form-control" required>
-                            </div>
+<body class="hold-transition sidebar-collapse layout-top-nav">
+    <div class="wrapper">
 
-                            <div class="mb-3">
-                                <label for="pengarang" class="form-label">Pengarang: </label>
-                                <input type="text" name="pengarang" id="pengarang" class="form-control" required>
-                            </div>
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+            <div class="container">
+                <a href="{{ route('admIndex') }} " class="navbar-brand">
+                    {{-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
+                    <span class="brand-text font-weight-light">E-Library</span>
+                </a>
 
-                            <div class="mb-3">
-                                <label for="penerbit" class="form-label">Penerbit: </label>
-                                <input type="text" name="penerbit" id="penerbit" class="form-control" required>
-                            </div>
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
+                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                            <div class="mb-3">
-                                <label for="tahun_terbit" class="form-label">Tahun Terbit: </label>
-                                <input type="text" name="tahun_terbit" id="tahun_terbit" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="genre_buku" class="form-label">Genre Buku: </label>
-                                <input type="text" name="genre_buku" id="genre_buku" class="form-control"
-                                    required>
-                            </div>
+                <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+                    <!-- Left navbar links -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
+                                    class="fas fa-bars"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admIndex') }}" class="nav-link">Home</a>
+                        </li>
+                    </ul>
 
-                            <div class="row row-cols-auto mt-4">
-                                <div class="col">
-                                    <button type="submit" class="btn btn-success">Simpan</button>
+                    <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                        <!-- SEARCH FORM -->
+                        <form class="form-inline">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                                    aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
                                 </div>
+                            </div>
                         </form>
-                        <div class="col">
-                            <form action="{{ url()->previous() }}">
-                                <button type="submit" class="btn btn-secondary">Kembali</button>
-                            </form>
-                        </div>
-                    </div>
-                    </div>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </div>
+        </nav>
+        <!-- /.navbar -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-    </script>
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="../../index3.html" class="brand-link">
+                {{-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
+                <span class="brand-text font-weight-light">E-Library</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    {{-- <div class="image">
+                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div> --}}
+                    <div class="info">
+                        <a href="#" class="d-block">Alexander Pierce</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
+                        <li class="nav-item">
+                            <a href="{{ route('admMhsIndex') }}" class="nav-link">
+                                <i class="nav-icon far fa-image"></i>
+                                <p>
+                                    Mahasiswa
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admBukuIndex') }}" class="nav-link">
+                                <i class="nav-icon far fa-image"></i>
+                                <p>
+                                    Buku
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('logout') }}" class="nav-link">
+                                <i class="nav-icon far fa-image"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Home <small>Admin</small></h1>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header text-center">
+                                    <h2>Tambahkan Data Buku</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container-float mb-3">
+                                        <form action="{{ url()->previous() }}">
+                                            @csrf
+                                            <button type="submit button" class="btn btn-secondary">Kembali</button>
+                                        </form>
+                                    </div>
+                                    <form action="{{ route('storeBuku') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="judul" class="form-label">Judul: </label>
+                                            <input type="text" name="judul" id="judul" class="form-control" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="pengarang" class="form-label">Pengarang: </label>
+                                            <input type="text" name="pengarang" id="pengarang" class="form-control" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="penerbit" class="form-label">Penerbit: </label>
+                                            <input type="text" name="penerbit" id="penerbit" class="form-control" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="tahun_terbit" class="form-label">Tahun Terbit: </label>
+                                            <input type="text" name="tahun_terbit" id="tahun_terbit" class="form-control" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="genre_buku" class="form-label">Genre Buku: </label>
+                                            <input type="text" name="genre_buku" id="genre_buku" class="form-control"
+                                                required>
+                                        </div>
+
+                                        <div class="row row-cols-auto mt-4">
+                                            <div class="col">
+                                                <button type="submit" class="btn btn-success">Simpan</button>
+                                            </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.col-md-6 -->
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+
+        <!-- Main Footer -->
+        {{-- <footer class="main-footer">
+            <!-- To the right -->
+            <div class="float-right d-none d-sm-inline">
+                Anything you want
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            reserved.
+        </footer> --}}
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+
+    <!-- jQuery -->
+    <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('template/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('template/dist/js/adminlte.min.js') }}"></script>
 </body>
 
 </html>

@@ -22,10 +22,10 @@ class LoginController extends Controller
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
 
-            return redirect()->intended('admMhsIndex');
+            return redirect()->intended('admIndex');
         }
 
-        return back()->with('errormsg', 'Login gagal!');
+        return back()->with('errormsg', 'Email atau password yang dimasukkan salah');
     }
 
     public function register(){
