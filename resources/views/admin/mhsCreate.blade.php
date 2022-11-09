@@ -18,7 +18,7 @@
                         <div class="text-center p-3">
                             <h1>Tambahkan Data Mahasiswa</h1>
                         </div>
-                        <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('storeMhs') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="nrp" class="form-label">NRP: </label>

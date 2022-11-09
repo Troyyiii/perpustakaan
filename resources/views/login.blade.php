@@ -36,7 +36,7 @@
                 </div>
                 @endif
 
-                <form action="/logincheck" method="post">
+                <form action="/loginCheck" method="post">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" name="email" placeholder="Email" required>

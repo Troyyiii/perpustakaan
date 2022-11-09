@@ -24,7 +24,7 @@
                         <div class="text-center p-3">
                             <h1>Ubah Data Mahasiswa</h1>
                         </div>
-                        <form class="form-check" action="{{ route('update', $mahasiswa->id) }}" method="POST">
+                        <form class="form-check" action="{{ route('updateMhs', $mahasiswa->id) }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="nrp" class="form-label">NRP: </label>

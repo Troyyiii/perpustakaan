@@ -21,7 +21,7 @@ class MahasiswaController extends Controller
 
         $mahasiswa = mahasiswa::all();
 
-        return view('mhsindex', compact('mahasiswa'));
+        return view('admin\admMhsIndex', compact('mahasiswa'));
     }
 
     /**
@@ -31,7 +31,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mhscreate');
+        return view('admin\mhsCreate');
     }
 
     /**
@@ -59,7 +59,7 @@ class MahasiswaController extends Controller
 
         mahasiswa::create($request->all());
 
-        return redirect()->route('index')->with('success', 'Data telah berhasil ditambahkan!');
+        return redirect()->route('admMhsIndex')->with('success', 'Data telah berhasil ditambahkan!');
     }
 
     /**
@@ -71,7 +71,7 @@ class MahasiswaController extends Controller
     public function show($id)
     {
         $mahasiswa = mahasiswa::find($id);
-        return view('mhsedit', compact('mahasiswa'));
+        return view('admin\mhsEdit', compact('mahasiswa'));
     }
 
     /**
@@ -96,7 +96,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = mahasiswa::find($id);
         $mahasiswa->update($request->all());
-        return redirect()->route('index')->with('success', 'Data telah berhasil diubah!');
+        return redirect()->route('admMhsIndex')->with('success', 'Data telah berhasil diubah!');
     }
 
     /**
@@ -109,6 +109,6 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = mahasiswa::find($id);
         $mahasiswa->delete();
-        return redirect()->route('index')->with('success', 'Data telah berhasil dihapus!');
+        return redirect()->route('admMhsIndex')->with('success', 'Data telah berhasil dihapus!');
     }
 }
