@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Registration Page (v2)</title>
+    <title>Perpustakaan | Register</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -21,12 +21,12 @@
     <div class="register-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+                <a href="../../index2.html" class="h1"><b>E-</b>Library</a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Silahkan buat akun anda</p>
 
-                <form action="/registerstore" method="post">
+                <form action="/registerStore" method="post">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" name="name" placeholder="Full name required">

@@ -13,7 +13,7 @@ class LoginController extends Controller
         return view('login');
     }
 
-    public function logincheck(Request $request){
+    public function loginCheck(Request $request){
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -22,17 +22,17 @@ class LoginController extends Controller
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
 
-            return redirect()->intended('/index');
+            return redirect()->intended('admIndex');
         }
 
-        return back()->with('errormsg', 'Login gagal!');
+        return back()->with('errormsg', 'Email atau password yang dimasukkan salah');
     }
 
     public function register(){
         return view('register');
     }
 
-    public function registerstore(Request $request){
+    public function registerStore(Request $request){
         User::create([
             'name' => $request->name,
             'email' => $request->email,
