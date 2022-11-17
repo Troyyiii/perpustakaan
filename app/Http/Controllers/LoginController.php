@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 class LoginController extends Controller
 {
@@ -14,33 +15,26 @@ class LoginController extends Controller
     }
 
     public function loginCheck(Request $request){
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+        $input = $request->all();
+
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        if(Auth::attempt($credentials)){
-            $request->session()->regenerate();
-
-            return redirect()->intended('admIndex');
+        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+        {
+            if (auth()->user()->level == 'admin') {
+                return redirect()->route('admIndex');
+            }else if (auth()->user()->level == 'user') {
+                return redirect()->route('usrIndex');
+            }else{
+                return redirect()->route('/');
+            }
+        }else{
+            return redirect()->route('login')
+                ->with('errormsg', 'Email atau password yang dimasukkan salah');
         }
-
-        return back()->with('errormsg', 'Email atau password yang dimasukkan salah');
-    }
-
-    public function register(){
-        return view('register');
-    }
-
-    public function registerStore(Request $request){
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'remember_token' => Str::random(60),
-        ]);
-
-        return redirect('/login');
     }
 
     public function logout(){
