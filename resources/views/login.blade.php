@@ -16,8 +16,8 @@
                             <h1><b>E-</b>Library</h1>
                             <hr>
                         </div>
-                        <h4 class="mb-2">Selamat datang di E-Library! </h4>
-                        <p class="mb-4">Sign-in sekarang dan mulailah jelajahi dunia dengan buku</p>
+                        <h4 class="mb-2">Selamat datang di E-Library </h4>
+                        <p class="mb-4">Sign-in sekarang dan mulailah jelajahi dunia melalui buku</p>
 
                         <form id="formAuthentication" class="mb-3" action="/loginCheck" method="POST">
                             @csrf

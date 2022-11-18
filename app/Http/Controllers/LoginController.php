@@ -34,7 +34,7 @@ class LoginController extends Controller
                 }
             }else{
                 return redirect()->route('login')
-                ->with('errormsg', 'Email belum terverifikasi');
+                ->with('errormsg', 'Akun belum terverifikasi');
             }
         }else{
             return redirect()->route('login')
