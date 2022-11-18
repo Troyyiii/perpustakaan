@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('penerbit');
             $table->string('tahun_terbit');
             $table->string('genre_buku');
+            $table->string('status');
             $table->timestamps();
         });
     }
