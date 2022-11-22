@@ -16,6 +16,7 @@ class RegisterController extends Controller
     }
 
     public function registerStore(Request $request){
+        //validasi
         $validatedData = $request->validate([
             'name' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
             'email' => 'required|email',
@@ -23,11 +24,13 @@ class RegisterController extends Controller
             'password_confirmation' => 'min:8|max:255'
         ]);
 
+        $validatedData['password'] = Hash::make($validatedData['password']);
+
+        //new object
         $user = new User();
         $mhs_data = new mahasiswa();
 
-        $validatedData['password'] = Hash::make($validatedData['password']);
-
+        //user
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
@@ -40,6 +43,7 @@ class RegisterController extends Controller
             $idUser = $item->id;
         }
 
+        //mahasiswa
         $mhs_data->nrp = $request->input('nrp');
         $mhs_data->nama = $request->input('name');
         $mhs_data->kelas = $request->input('kelas');
@@ -49,6 +53,7 @@ class RegisterController extends Controller
 
         $mhs_data->save();
 
+        //return
         return redirect('/login')->with('scsregistmsg', 'Akun telah berhasil dibuat, silahkan tunggu untuk diverifikasi');
     }
 }
