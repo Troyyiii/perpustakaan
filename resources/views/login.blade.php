@@ -1,96 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout.sneatlay')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Perpustakaan | Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+@section('title')
+    Perpustakaan | Sign-in
+@endsection
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href=" {{ asset('template/plugins/fontawesome-free/css/all.min.css') }} ">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('template/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('template/dist/css/adminlte.min.css') }}">
-</head>
+@section('body-content')
+    <div class="container-xxl">
+        <div class="authentication-wrapper authentication-basic container-p-y">
+            <div class="authentication-inner">
 
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <!-- /.login-logo -->
-        <div class="card card-outline card-primary">
-            <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>E-</b>Library</a>
-            </div>
-            <div class="card-body">
-                <p class="login-box-msg">Silahkan login ke akun anda</p>
+                <!-- Login -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center p-2">
+                            <h1><b>E-</b>Library</h1>
+                            <hr>
+                        </div>
+                        <h4 class="mb-2">Selamat datang di E-Library </h4>
+                        <p class="mb-4">Sign-in sekarang dan mulailah jelajahi dunia melalui buku</p>
 
-                @if (session()->has('errormsg'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('errormsg') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <form id="formAuthentication" class="mb-3" action="/loginCheck" method="POST">
+                            @csrf
+                            @if (session()->has('errormsg'))
+                            <div class="alert alert-danger" role="alert">
+                                <small>{{ session('errormsg') }}</small>
+                            </div>
+                            @endif
+                            @if (session()->has('scsregistmsg'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <small>{{ session('scsregistmsg') }}</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            @endif
+
+                            {{-- email --}}
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control @error('email')
+                                is-invalid @enderror" id="email" name="email"
+                                    placeholder="Masukkan alamat email" value="{{ old('email') }}" autofocus
+                                    required />
+                                @error('email')
+                                <div class="invalid-feedback">
+                                    <small>Format email yang dimasukkan salah</small>
+                                </div>
+                                @enderror
+                            </div>
+
+                            {{-- password --}}
+                            <div class="mb-3 form-password-toggle">
+                                <label class="form-label" for="password">Password</label>
+                                <input type="password" id="password" class="form-control" name="password"
+                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                    aria-describedby="password" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                            </div>
+                        </form>
+
+                        <p class="text-center">
+                            <span>Belum punya akun?</span>
+                            <a href="/register">
+                                <span>Buat akun</span>
+                            </a>
+                        </p>
+                    </div>
                 </div>
-                @endif
+                <!-- /Login -->
 
-                <form action="/loginCheck" method="post">
-                    @csrf
-                    <div class="input-group mb-3">
-                        <input type="email" class="form-control" name="email" placeholder="Email" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" name="password" placeholder="Password required">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </form>
-
-                <p class="mb-0">
-                    Belum memiliki akun?
-                    <a href="/register" class="text-center">Buat akun</a>
-                </p>
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.card -->
     </div>
-    <!-- /.login-box -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-    </script>
-    <!-- jQuery -->
-    <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('template/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('template/dist/js/adminlte.min.js') }} "></script>
-</body>
-
-</html>
+@endsection
