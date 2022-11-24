@@ -11,4 +11,9 @@ class buku extends Model
 
     protected $guarded = [];
     protected $dates =['created_at'];
+
+    public function pinjam()
+    {
+        return $this->hasOne(pinjam::class, 'buku_id', 'id');
+    }
 }

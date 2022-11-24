@@ -37,11 +37,9 @@ class RegisterController extends Controller
 
         $user->save();
 
-        $latestUser = User::latest()->get();
+        $latestUser = User::orderBy('id', 'desc')->first();
 
-        foreach ($latestUser as $item) {
-            $idUser = $item->id;
-        }
+        $idUser = $latestUser->id;
 
         //mahasiswa
         $mhs_data->nrp = $request->input('nrp');

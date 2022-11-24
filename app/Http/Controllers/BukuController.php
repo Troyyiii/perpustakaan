@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\buku;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BukuController extends Controller
 {
@@ -16,7 +17,12 @@ class BukuController extends Controller
     {
         $buku = buku::all();
 
-        return view('admin\admBukuIndex', compact('buku'));
+        // dd(Auth::user()->level);
+
+        if(Auth::user()->level=='admin')
+            return view('admin\admBukuIndex', compact('buku'));
+        else
+            return view('user\usrBukuIndex', compact('buku'));
     }
 
     /**
@@ -66,7 +72,11 @@ class BukuController extends Controller
     public function show($id)
     {
         $buku = buku::find($id);
-        return view('admin\bukuEdit', compact('buku'));
+
+        if(Auth::user()->level=='admin')
+            return view('admin\bukuEdit', compact('buku'));
+        else
+            return view('user\usrBukuInfo', compact('buku'));
     }
 
     /**

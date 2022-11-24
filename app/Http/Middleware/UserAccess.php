@@ -20,6 +20,6 @@ class UserAccess
             return $next($request);
         }
 
-        return view('login');
+        return redirect()->back();
     }
 }

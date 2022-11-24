@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\PinjamController;
+use Database\Seeders\BukuSeeder;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,14 +37,16 @@ Route::middleware(['auth', 'user-access:user'])->group(function(){
     Route::get('/usrIndex', function () {
         return view('user\usrIndex');
     })->name('usrIndex')->middleware('auth');
+
+    Route::get('/usrBukuIndex', [BukuController::class, 'index'])->name('usrBukuIndex')->middleware('auth');
+    Route::get('/usrBukuInfo/{id}', [BukuController::class, 'show'])->name('usrBukuInfo')->middleware('auth');
+    Route::post('/usrPinjam/{id}', [PinjamController::class, 'pinjam'])->name('usrPinjam')->middleware('auth');
 });
 
 Route::middleware(['auth', 'user-access:admin'])->group(function(){
 
     //indexadmin
-    Route::get('/admIndex', function () {
-        return view('admin\admIndex');
-    })->name('admIndex')->middleware('auth');
+    Route::get('/admIndex', [AdminController::class, 'index'])->name('admIndex')->middleware('auth');
 
     //crud mahasiswa
     Route::get('/admMhsIndex', [MahasiswaController::class, 'index'])->name('admMhsIndex')->middleware('auth');
@@ -50,6 +55,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function(){
     Route::get('/showMhs/{id}', [MahasiswaController::class, 'show'])->name('showMhs')->middleware('auth');
     Route::post('/updateMhs/{id}', [MahasiswaController::class, 'update'])->name('updateMhs')->middleware('auth');
     Route::get('/deleteMhs/{id}', [MahasiswaController::class, 'destroy'])->name('deleteMhs')->middleware('auth');
+    Route::get('/verifyMhs/{id}', [AdminController::class, 'verify'])->name('verifyMhs')->middleware('auth');
 
     //crud buku
     Route::get('/admBukuIndex', [BukuController::class, 'index'])->name('admBukuIndex')->middleware('auth');

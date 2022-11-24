@@ -8,15 +8,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Perpustakaan User | Home</title>
+    <title>Perpustakaan User | Home Buku</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('template/adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('template/adminlte/dist/css/adminlte.min.css') }}">
 </head>
@@ -27,7 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-                <a href="" class="navbar-brand">
+                <a href="{{ route('usrIndex') }} " class="navbar-brand">
                     {{-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
                     <span class="brand-text font-weight-light">E-Library</span>
                 </a>
@@ -46,7 +44,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     class="fas fa-bars"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">Home</a>
+                            <a href="{{ route('usrIndex') }}" class="nav-link">Home</a>
                         </li>
                     </ul>
 
@@ -139,11 +137,51 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="row">
                         <div class="col">
                             <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h2>Selamat Datang User</h2>
+                                <div class="card-header text-center">
+                                    <h2>Data Buku</h2>
                                 </div>
                                 <div class="card-body">
-                                    <h6 class="card-title">Cari bukumu sekarang</h6>
+                                    @if ($message = Session::get('success'))
+                                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                        {{ $message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    @endif
+                                    <div class="container mx-auto">
+                                        <table class="table">
+                                            <thead class="table-info">
+                                                <tr>
+                                                    <th scope="col">No.</th>
+                                                    <th scope="col">Judul</th>
+                                                    <th scope="col">Pengarang</th>
+                                                    <th scope="col">Penerbit</th>
+                                                    <th scope="col">Tahun Terbit</th>
+                                                    <th scope="col">Genre Buku</th>
+                                                    <th scope="col">Action</th>
+                                                </tr>
+                                            </thead>
+                                            @foreach ($buku as $dataBuku)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $dataBuku->judul }}</td>
+                                                <td>{{ $dataBuku->pengarang }}</td>
+                                                <td>{{ $dataBuku->penerbit }}</td>
+                                                <td>{{ $dataBuku->tahun_terbit }}</td>
+                                                <td>{{ $dataBuku->genre_buku }}</td>
+                                                <td>
+                                                    <div class="col-auto">
+                                                        <form action="{{ route('usrBukuInfo', $dataBuku->id) }}">
+                                                            @csrf
+                                                            <button type="submit button"
+                                                                class="btn btn-success">Lihat</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

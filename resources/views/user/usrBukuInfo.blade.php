@@ -8,15 +8,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Perpustakaan User | Home</title>
+    <title>Perpustakaan User | Lihat Buku</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('template/adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('template/adminlte/dist/css/adminlte.min.css') }}">
 </head>
@@ -27,7 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-                <a href="" class="navbar-brand">
+                <a href="{{ route('usrIndex') }} " class="navbar-brand">
                     {{-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
                     <span class="brand-text font-weight-light">E-Library</span>
                 </a>
@@ -46,7 +44,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     class="fas fa-bars"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">Home</a>
+                            <a href="{{ route('usrIndex') }}" class="nav-link">Home</a>
                         </li>
                     </ul>
 
@@ -126,7 +124,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="container">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Home <small>User</small></h1>
+                            <h1 class="m-0">Home <small>Admin</small></h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -140,10 +138,82 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="col">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
-                                    <h2>Selamat Datang User</h2>
+                                    <h2>Ubah Data Buku</h2>
                                 </div>
                                 <div class="card-body">
-                                    <h6 class="card-title">Cari bukumu sekarang</h6>
+                                    @if ($message = Session::get('success'))
+                                    <div class="container-fluid">
+                                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                            {{ $message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    <div class="container-float mb-3">
+                                        <form action="{{ route('usrBukuIndex') }}">
+                                            @csrf
+                                            <button type="submit button" class="btn btn-secondary">Kembali</button>
+                                        </form>
+                                    </div>
+                                    <form class="form-check" action="{{ route('usrPinjam', $buku->id) }}" method="POST">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="judul" class="form-label">Judul: </label>
+                                            <input type="text" name="judul" id="judul" value="{{ $buku->judul }}"
+                                                class="form-control" required disabled readonly>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="pengarang" class="form-label">Pengarang: </label>
+                                            <input type="text" name="pengarang" id="pengarang"
+                                                value="{{ $buku->pengarang }}" class="form-control" required disabled
+                                                readonly>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="penerbit" class="form-label">Penerbit: </label>
+                                            <input type="text" name="penerbit" id="penerbit"
+                                                value="{{ $buku->penerbit }}" class="form-control" required disabled
+                                                readonly>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="tahun_terbit" class="form-label">Tahun Terbit: </label>
+                                            <input type="text" name="tahun_terbit" id="tahun_terbit"
+                                                value="{{ $buku->tahun_terbit }}" class="form-control" required disabled
+                                                readonly>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="genre_buku" class="form-label">Genre Buku: </label>
+                                            <input type="text" name="genre_buku" id="genre_buku"
+                                                value="{{ $buku->genre_buku }}" class="form-control" required disabled
+                                                readonly>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="status" class="form-label">Status: </label>
+                                            <input type="text" name="status" id="status" value="{{ $buku->status }}"
+                                                class="form-control" required disabled readonly>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="tgl_pinjam" class="form-label">Tanggal Pinjam: </label>
+                                            <input type="date" name="tgl_pinjam" id="tgl_pinjam" class="form-control"
+                                                required @if ($buku->status === 'Terpinjam')
+                                            disabled
+                                            @endif>
+                                        </div>
+
+                                        <div class="row row-cols-auto mt-4">
+                                            <div class="col">
+                                                <button type="submit" class="btn btn-success" @if ($buku->status ===
+                                                    'Terpinjam')
+                                                    disabled
+                                                    @endif>Pinjam</button>
+                                            </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -173,6 +173,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                             <th scope="col">Kelas</th>
                                                             <th scope="col">No. HP</th>
                                                             <th scope="col">Tahun angkatan</th>
+                                                            <th scope="col">Status</th>
                                                             <th scope="col">Dibuat</th>
                                                             <th scope="col">Action</th>
                                                         </tr>
@@ -185,6 +186,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                         <td>{{ $dataMhs->kelas }}</td>
                                                         <td>{{ $dataMhs->no_hp }}</td>
                                                         <td>{{ $dataMhs->tahun_angkatan }}</td>
+                                                        <td>{{ $dataMhs->user->status }}</td>
                                                         <td>{{ $dataMhs->created_at->format('D M Y') }}</td>
                                                         <td>
                                                             <div class="row">
@@ -197,6 +199,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                                 <div class="col-auto">
                                                                     <form action="{{ route('deleteMhs', $dataMhs->id) }}">
                                                                         @csrf
+                                                                        <input type="hidden" name="id" value="{{ $dataMhs->user_id }}">
                                                                         <button type="submit button" class="btn btn-danger"
                                                                             onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
                                                                     </form>

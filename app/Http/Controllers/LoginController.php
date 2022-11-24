@@ -24,7 +24,7 @@ class LoginController extends Controller
 
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
-            if(auth()->user()->status === 'actived') {
+            if(auth()->user()->status === 'Actived') {
                 if (auth()->user()->level == 'admin') {
                     return redirect()->route('admIndex');
                 }else if (auth()->user()->level == 'user') {

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class MahasiswaController extends Controller
 {
@@ -105,10 +107,12 @@ class MahasiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $mahasiswa = mahasiswa::find($id);
         $mahasiswa->delete();
+        $dataUser = User::find($request->id);
+        $dataUser->delete();
         return redirect()->route('admMhsIndex')->with('success', 'Data telah berhasil dihapus!');
     }
 }

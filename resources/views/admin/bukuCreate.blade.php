@@ -176,6 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <label for="tahun_terbit" class="form-label">Tahun Terbit: </label>
                                             <input type="text" name="tahun_terbit" id="tahun_terbit" class="form-control" required>
                                         </div>
+
                                         <div class="mb-3">
                                             <label for="genre_buku" class="form-label">Genre Buku: </label>
                                             <input type="text" name="genre_buku" id="genre_buku" class="form-control"

@@ -52,4 +52,9 @@ class User extends Authenticatable
             get: fn ($value) =>  ["user", "admin"][$value],
         );
     }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne(mahasiswa::class, 'user_id', 'id');
+    }
 }
