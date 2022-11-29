@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\pinjam;
 use App\Models\mahasiswa;
 use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 
 class AdminController extends Controller
 {
@@ -16,6 +17,8 @@ class AdminController extends Controller
         return view('admin\admIndex')->with([
             'inactive' => $unuser,
             'pendingPinjam' => $unpinjam,
+            'i' => 0,
+            'y' => 0,
         ]);
     }
 
@@ -28,5 +31,22 @@ class AdminController extends Controller
 
         return redirect()->route('admIndex')
             ->with('success', 'Akun telah berhasil diverifikasi');
+    }
+
+    public function verifyPjm(Request $request, $id){
+        $dataPjm = pinjam::find($id);
+        if($dataPjm){
+            $dataPjm->stats = 'Sedang Dipinjam';
+            $dataPjm->save();
+        }
+
+        return redirect()->route('admIndex')
+            ->with('successPjm', 'Akun telah berhasil diverifikasi');
+    }
+
+    public function showProfile($id){
+        $data = user::find($id);
+
+        return view('admin\admProfile')->with('profil', $data);
     }
 }

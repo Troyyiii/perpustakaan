@@ -50,10 +50,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                         <!-- SEARCH FORM -->
-                        <form class="form-inline">
+                        <form class="form-inline" action="{{ route('admBukuIndexCari') }}" method="GET">
                             <div class="input-group input-group-sm">
                                 <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                    aria-label="Search">
+                                    aria-label="Search" value="{{ old('cari') }}" name="cari" id="cari">
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
                                         <i class="fas fa-search"></i>
@@ -160,7 +160,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <div class="container mb-2">
                                             <form action="{{ route('bukuCreate') }}">
                                                 @csrf
-                                                <button type="submit button" class="btn btn-primary">Tambahkan Data</button>
+                                                <button type="submit button" class="btn btn-primary">Tambahkan
+                                                    Data</button>
                                             </form>
                                         </div>
                                         <table class="table">
@@ -172,7 +173,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <th scope="col">Penerbit</th>
                                                     <th scope="col">Tahun Terbit</th>
                                                     <th scope="col">Genre Buku</th>
-                                                    <th scope="col">Dibuat</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
@@ -184,7 +184,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <td>{{ $dataBuku->penerbit }}</td>
                                                 <td>{{ $dataBuku->tahun_terbit }}</td>
                                                 <td>{{ $dataBuku->genre_buku }}</td>
-                                                <td>{{ $dataBuku->created_at->format('D M Y') }}</td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-auto">

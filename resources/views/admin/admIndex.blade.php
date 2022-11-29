@@ -14,10 +14,10 @@ Perpustakaan | Admin Home
             <div class="app-brand demo">
                 <a href="{{ route('admIndex') }}" class="app-brand-link">
                     <span class="app-brand-logo demo">
-                        <img src="template/sneat/assets/img/favicon/lib.png" alt="logo_perpus"
+                        <img src="{{ asset('template/sneat/assets/img/favicon/lib.png') }}" alt="logo_perpus"
                             style="width: 32px; height: 32px;">
                     </span>
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2">Perpustakaan</span>
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2">E-Library</span>
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -54,7 +54,7 @@ Perpustakaan | Admin Home
                 </li>
 
                 <li class="menu-item">
-                    <a href="{{ route('admBukuIndex') }}" class="menu-link">
+                    <a href="{{ route('admPinjamIndex') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-layout"></i>
 
                         <div data-i18n="Analytics">Data Pinjam</div>
@@ -81,13 +81,15 @@ Perpustakaan | Admin Home
 
                 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                     <!-- Search -->
-                    <div class="navbar-nav align-items-center">
-                        <div class="nav-item d-flex align-items-center">
-                            <i class="bx bx-search fs-4 lh-0"></i>
-                            <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                                aria-label="Search..." />
+                    <form class="form-inline" action="{{ route('admBukuIndexCari') }}" method="GET">
+                        <div class="navbar-nav align-items-center">
+                            <div class="nav-item d-flex align-items-center">
+                                <i class="bx bx-search fs-4 lh-0"></i>
+                                <input type="text" class="form-control border-0 shadow-none" placeholder="Cari Buku..."
+                                    aria-label="Search..." value="{{ old('cari') }}" name="cari" id="cari"/>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                     <!-- /Search -->
 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -121,7 +123,7 @@ Perpustakaan | Admin Home
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('admProfile', Auth::user()->id) }}">
                                         <i class="bx bx-user me-2"></i>
                                         <span class="align-middle">My Profile</span>
                                     </a>
@@ -160,7 +162,8 @@ Perpustakaan | Admin Home
                                 <div class="container-fluid">
                                     <div class="alert alert-success alert-dismissible" role="alert">
                                         <small>{{ session('success') }}</small>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
                                     </div>
                                 </div>
                                 @endif
@@ -178,7 +181,7 @@ Perpustakaan | Admin Home
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
-                                            @foreach ($inactive as $dataMhs)
+                                            @foreach ($inactive as $i => $dataMhs)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $dataMhs->mahasiswa->nrp }}</td>
@@ -199,6 +202,9 @@ Perpustakaan | Admin Home
                                                 </td>
                                             </tr>
                                             @endforeach
+                                            @if ($i == '0')
+                                            <td class="text-center" colspan="7">Tidak ada terbaru</td>
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -210,14 +216,15 @@ Perpustakaan | Admin Home
                     </div>
                     <div class="row">
                         <div class="mb-4 order-0">
-                            {{-- verifikasi akun --}}
+                            {{-- verifikasi peminjaman buku --}}
                             <div class="card">
                                 <h5 class="card-header">Verifikasi Pinjaman Buku</h5>
-                                @if (session()->has('success'))
+                                @if (session()->has('successPjm'))
                                 <div class="container-fluid">
                                     <div class="alert alert-success alert-dismissible" role="alert">
-                                        <small>{{ session('success') }}</small>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        <small>{{ session('successPjm') }}</small>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
                                     </div>
                                 </div>
                                 @endif
@@ -237,29 +244,32 @@ Perpustakaan | Admin Home
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
-                                            @foreach ($pendingPinjam as $dataPjm)
+                                            @foreach ($pendingPinjam as $y => $dataPjm)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $dataPjm->buku_id }}</td>
                                                 <td>{{ $dataPjm->buku->judul }}</td>
                                                 <td>{{ $dataPjm->buku->pengarang }}</td>
-                                                <td>{{ $dataPjm->user->nrp }}</td>
-                                                <td>{{ $dataPjm->user->nama }}</td>
-                                                <td>{{ $dataPjm->user->kelas }}</td>
+                                                <td>{{ $dataPjm->mahasiswa->nrp }}</td>
+                                                <td>{{ $dataPjm->mahasiswa->nama }}</td>
+                                                <td>{{ $dataPjm->mahasiswa->kelas }}</td>
                                                 <td>{{ $dataPjm->tanggal_pinjam }}</td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-auto">
-                                                            <form action="{{ route('verifyMhs', $dataPjm->id) }}">
+                                                            <form action="{{ route('verifyPjm', $dataPjm->id) }}">
                                                                 @csrf
                                                                 <button type="submit button" class="btn btn-primary"
-                                                                    onclick="return confirm('Verifikasi akun ini?')">Verifikasi</button>
+                                                                    onclick="return confirm('Verifikasi peminjaman ini?')">Verifikasi</button>
                                                             </form>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             @endforeach
+                                            @if ($y == '0')
+                                            <td class="text-center" colspan="9">Tidak ada terbaru</td>
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -277,5 +287,7 @@ Perpustakaan | Admin Home
             <!-- Overlay -->
             <div class="layout-overlay layout-menu-toggle"></div>
         </div>
-        <!-- / Layout wrapper -->
-        @endsection
+    </div>
+</div>
+<!-- / Layout wrapper -->
+@endsection

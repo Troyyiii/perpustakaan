@@ -23,7 +23,10 @@ class MahasiswaController extends Controller
 
         $mahasiswa = mahasiswa::all();
 
-        return view('admin\admMhsIndex', compact('mahasiswa'));
+        return view('admin\admMhsIndex')->with([
+            'mahasiswa' => $mahasiswa,
+            'i' => 0,
+        ]);
     }
 
     /**

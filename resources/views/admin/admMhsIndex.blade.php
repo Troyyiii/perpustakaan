@@ -154,14 +154,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             @if ($message = Session::get('success'))
                                             <div class="alert alert-primary alert-dismissible fade show" role="alert">
                                                 {{ $message }}
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
                                             </div>
                                             @endif
                                             <div class="container mx-auto">
                                                 <div class="container mb-2">
                                                     <form action="{{ route('mhsCreate') }}">
                                                         @csrf
-                                                        <button type="submit button" class="btn btn-primary">Tambahkan data</button>
+                                                        <button type="submit button" class="btn btn-primary">Tambahkan
+                                                            data</button>
                                                     </form>
                                                 </div>
                                                 <table class="table">
@@ -178,7 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                             <th scope="col">Action</th>
                                                         </tr>
                                                     </thead>
-                                                    @foreach ($mahasiswa as $dataMhs)
+                                                    @foreach ($mahasiswa as $i => $dataMhs)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $dataMhs->nrp }}</td>
@@ -193,14 +195,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                                 <div class="col-auto">
                                                                     <form action="{{ route('showMhs', $dataMhs->id) }}">
                                                                         @csrf
-                                                                        <button type="submit button" class="btn btn-success">Edit</button>
+                                                                        <button type="submit button"
+                                                                            class="btn btn-success">Edit</button>
                                                                     </form>
                                                                 </div>
                                                                 <div class="col-auto">
-                                                                    <form action="{{ route('deleteMhs', $dataMhs->id) }}">
+                                                                    <form
+                                                                        action="{{ route('deleteMhs', $dataMhs->id) }}">
                                                                         @csrf
-                                                                        <input type="hidden" name="id" value="{{ $dataMhs->user_id }}">
-                                                                        <button type="submit button" class="btn btn-danger"
+                                                                        <input type="hidden" name="id"
+                                                                            value="{{ $dataMhs->user_id }}">
+                                                                        <button type="submit button"
+                                                                            class="btn btn-danger"
                                                                             onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
                                                                     </form>
                                                                 </div>
@@ -208,6 +214,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                         </td>
                                                     </tr>
                                                     @endforeach
+                                                    @if ($i == '0')
+                                                        <td class="text-center" colspan="9">Tidak terdapat data</td>
+                                                    @endif
                                                 </table>
                                             </div>
                                         </div>

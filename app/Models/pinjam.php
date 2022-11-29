@@ -9,10 +9,10 @@ class pinjam extends Model
 {
     use HasFactory;
 
-    public function user()
+    public function mahasiswa()
     {
         return $this->belongsTo(mahasiswa::class, 'user_id', 'id');
-    }   
+    }
 
     public function buku()
     {

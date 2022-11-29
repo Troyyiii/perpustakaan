@@ -182,6 +182,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <input type="text" name="genre_buku" id="genre_buku" value="{{ $buku->genre_buku }}" class="form-control" required>
                                         </div>
 
+                                        <div class="mb-3">
+                                            <label for="genre_buku" class="form-label">Ditambahkan Pada: </label>
+                                            <input type="text" name="genre_buku" id="genre_buku" value="{{ $buku->created_at->format('D M Y') }}" class="form-control" disabled readonly>
+                                        </div>
+
                                         <div class="row row-cols-auto mt-4">
                                             <div class="col">
                                                 <button type="submit" class="btn btn-success">Ubah</button>

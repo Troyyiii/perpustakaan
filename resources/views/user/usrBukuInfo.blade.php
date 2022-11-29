@@ -200,7 +200,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                                         <div class="mb-3">
                                             <label for="tgl_pinjam" class="form-label">Tanggal Pinjam: </label>
-                                            <input type="date" name="tgl_pinjam" id="tgl_pinjam" class="form-control"
+                                            <input type="datetime-local" name="tgl_pinjam" id="tgl_pinjam" class="form-control"
                                                 required @if ($buku->status === 'Terpinjam')
                                             disabled
                                             @endif>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\buku;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class BukuController extends Controller
@@ -115,5 +116,18 @@ class BukuController extends Controller
         $buku = buku::find($id);
         $buku->delete();
         return redirect()->route('admBukuIndex')->with('success', 'Data telah berhasil dihapus!');
+    }
+
+    public function search(Request $request){
+        $cari = $request->input('cari');
+
+        $buku = DB::table('bukus')
+            ->where('judul', 'like', "%".$cari."%")
+            ->paginate();
+
+        if(Auth::user()->level=='admin')
+            return view('admin\admBukuIndex', ['buku' => $buku]);
+        else
+            return view('user\usrBukuIndex', ['buku' => $buku]);
     }
 }
