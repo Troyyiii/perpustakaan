@@ -6,6 +6,7 @@ use App\Models\buku;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BukuController extends Controller
 {
@@ -44,22 +45,23 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        // $nrp = $request->input('nrp');
-        // $nama = $request->input('nama');
-        // $kelas = $request->input('kelas');
-        // $no_hp = $request->input('no_hp');
-        // $tahun_angkatan = $request->input('tahun_angkatan');
+        $data = new Buku();
 
-        // DB::table('mahasiswa')
-        //     ->insert([
-        //         'nrp' => $nrp,
-        //         'nama' => $nama,
-        //         'kelas' => $kelas,
-        //         'no_hp' => $no_hp,
-        //         'tahun_angkatan' => $tahun_angkatan,
-        //     ]);
+        $this->validate($request, [
+            'cover' => 'mimes:jpeg,png',
+        ]);
 
-        buku::create($request->all());
+        $request->file('cover')->move('upload/', $request->file('cover')->getClientOriginalName());
+
+        $data->file_name = $request->file('cover')->getClientOriginalName();
+
+        $data->judul = $request->input('judul');
+        $data->pengarang = $request->input('pengarang');
+        $data->penerbit = $request->input('penerbit');
+        $data->tahun_terbit = $request->input('tahun_terbit');
+        $data->genre_buku = $request->input('genre_buku');
+
+        $data->save();
 
         return redirect()->route('admBukuIndex')->with('success', 'Data telah berhasil ditambahkan!');
     }

@@ -52,10 +52,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                         <!-- SEARCH FORM -->
-                        <form class="form-inline">
+                        <form class="form-inline" action="{{ route('usrBukuIndexCari') }}" method="GET">
                             <div class="input-group input-group-sm">
                                 <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                    aria-label="Search">
+                                    aria-label="Search" value="{{ old('cari') }}" name="cari" id="cari">
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
                                         <i class="fas fa-search"></i>

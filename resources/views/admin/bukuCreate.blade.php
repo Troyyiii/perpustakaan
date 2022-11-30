@@ -158,6 +158,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <form action="{{ route('storeBuku') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="mb-3">
+                                            <label for="cover" class="form-label">Cover Buku: </label>
+                                            <input type="file" accept="image/*" name="cover" id="cover" class="form-control" required>
+                                        </div>
+
+                                        <div class="mb-3">
                                             <label for="judul" class="form-label">Judul: </label>
                                             <input type="text" name="judul" id="judul" class="form-control" required>
                                         </div>

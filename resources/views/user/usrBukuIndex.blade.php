@@ -161,6 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <thead class="table-info">
                                                 <tr>
                                                     <th scope="col">No.</th>
+                                                    <th scope="col">Cover Buku</th>
                                                     <th scope="col">Judul</th>
                                                     <th scope="col">Pengarang</th>
                                                     <th scope="col">Penerbit</th>
@@ -172,6 +173,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             @foreach ($buku as $dataBuku)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
+                                                <td><img src="{{ asset('upload/'.$dataBuku->file_name) }}" alt="Cover Buku" style="width: 60px; height: 70px;"></td>
                                                 <td>{{ $dataBuku->judul }}</td>
                                                 <td>{{ $dataBuku->pengarang }}</td>
                                                 <td>{{ $dataBuku->penerbit }}</td>
