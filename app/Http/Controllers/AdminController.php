@@ -24,24 +24,24 @@ class AdminController extends Controller
 
     public function verify(Request $request, $id){
         $userMhs = user::find($id);
+
         if($userMhs){
             $userMhs->status = 'Actived';
             $userMhs->save();
         }
 
-        return redirect()->route('admIndex')
-            ->with('success', 'Akun telah berhasil diverifikasi');
+        return redirect()->route('admIndex')->with('success', 'Pembuatan akun telah berhasil diverifikasi');
     }
 
     public function verifyPjm(Request $request, $id){
         $dataPjm = pinjam::find($id);
+
         if($dataPjm){
             $dataPjm->stats = 'Sedang Dipinjam';
             $dataPjm->save();
         }
 
-        return redirect()->route('admIndex')
-            ->with('successPjm', 'Akun telah berhasil diverifikasi');
+        return redirect()->route('admIndex')->with('successPjm', 'Permintaan peminjaman buku telah diverifikasi');
     }
 
     public function showProfile($id){

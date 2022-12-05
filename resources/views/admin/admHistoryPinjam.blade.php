@@ -1,7 +1,7 @@
 @extends('layout.sneatlay')
 
 @section('title')
-E-Library | Buku - Admin
+E-Library | History Pinjam - Admin
 @endsection
 
 @section('body-content')
@@ -45,7 +45,7 @@ E-Library | Buku - Admin
                     </a>
                 </li>
 
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href="{{ route('admBukuIndex') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bxs-book-alt"></i>
 
@@ -53,7 +53,7 @@ E-Library | Buku - Admin
                     </a>
                 </li>
 
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a href="{{ route('admPinjamIndex') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bxs-archive"></i>
 
@@ -78,15 +78,13 @@ E-Library | Buku - Admin
 
                 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                     <!-- Search -->
-                    <form class="form-inline" action="{{ route('admBukuIndexCari') }}" method="GET">
-                        <div class="navbar-nav align-items-center">
-                            <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
-                                <input type="text" class="form-control border-0 shadow-none" placeholder="Cari Buku..."
-                                    aria-label="Search..." value="{{ old('cari') }}" name="cari" id="cari" />
-                            </div>
+                    {{-- <div class="navbar-nav align-items-center">
+                        <div class="nav-item d-flex align-items-center">
+                            <i class="bx bx-search fs-4 lh-0"></i>
+                            <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
+                                aria-label="Search..." />
                         </div>
-                    </form>
+                    </div> --}}
                     <!-- /Search -->
 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -145,98 +143,60 @@ E-Library | Buku - Admin
 
             <!-- Content wrapper -->
             <div class="content-wrapper">
+
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Database /</span> Data Buku</h4>
-                    <div class="row">
-                        <div class="mb-4 order-0">
-                            {{-- data buku --}}
-                            <div class="card">
-                                <h2 class="card-header text-center fw-bold">Data Buku</h2>
-                                <form action="{{ route('bukuCreate') }}" class="m-2">
-                                    @csrf
-                                    <button type="submit button" class="btn btn-primary"><i
-                                            class="menu-icon tf-icons bx bx-plus"></i>Tambahkan Data</button>
-                                </form>
-                                @if ($message = Session::get('success'))
-                                <div class="container-fluid">
-                                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                        {{ $message }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                </div>
-                                @endif
-                                <div class="table-responsive text-nowrap">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Cover Buku</th>
-                                                <th scope="col">Judul</th>
-                                                <th scope="col">Pengarang</th>
-                                                <th scope="col">Penerbit</th>
-                                                <th scope="col">Tahun Terbit</th>
-                                                <th scope="col">Genre Buku</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="table-border-bottom-0">
-                                            @foreach ($buku as $i => $dataBuku)
-                                            <tr>
-                                                <td><img src="{{ asset('upload/'.$dataBuku->file_name) }}"
-                                                        alt="Cover Buku" style="width: 60px; height: 80px;"></td>
-                                                <td>{{ $dataBuku->judul }}</td>
-                                                <td>{{ $dataBuku->pengarang }}</td>
-                                                <td>{{ $dataBuku->penerbit }}</td>
-                                                <td>{{ $dataBuku->tahun_terbit }}</td>
-                                                <td>{{ $dataBuku->genre_buku }}</td>
-                                                <td>
-                                                    <div class="row">
-                                                        <div class="col-auto">
-                                                            <form action="{{ route('showBuku', $dataBuku->id) }}">
-                                                                @csrf
-                                                                <button type="submit button" class="btn btn-success"><i
-                                                                        class="menu-icon tf-icons bx bxs-edit-alt"></i>Edit</button>
-                                                            </form>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <form action="{{ route('deleteBuku', $dataBuku->id) }}">
-                                                                @csrf
-                                                                <button type="submit button" class="btn btn-danger"
-                                                                    onclick="return confirm('Hapus buku berjudul {{ $dataBuku->judul }}')"><i
-                                                                        class="menu-icon tf-icons bx bxs-trash"></i>Delete</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <input type="hidden" name="id" value="{{ ++$i }}">
-                                            </tr>
-                                            @endforeach
-                                            @if ($i == '0')
-                                            <td class="text-center" colspan="9">Tidak terdapat data buku</td>
-                                            @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="container-fluid mt-4">
-                                    {{ $buku->links("pagination::bootstrap-5") }}
-                                </div>
-                            </div>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Database / Data Peminjaman /</span>
+                        History Peminjaman
+                    </h4>
+                    <form action="{{ url()->previous() }}" class="mb-4">
+                        @csrf
+                        <button type="submit button" class="btn btn-primary">
+                            <i class="menu-icon tf-icons bx bx-arrow-back"></i>Kembali</button>
+                    </form>
+                    <div class="card">
+                        <h2 class="card-header text-center fw-bold">History Peminjaman</h2>
+                        <div class="table-responsive text-nowrap">
+                            <table class="table table-hover">
+                                <thead>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Judul</th>
+                                    <th scope="col">Penerbit</th>
+                                    <th scope="col">Pengarang</th>
+                                    <th scope="col">NRP</th>
+                                    <th scope="col">Nama Mahasiswa</th>
+                                    <th scope="col">Tanggal Pinjam</th>
+                                    <th scope="col">Tanggal Kembali</th>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+                                    @foreach ($pinjam as $i => $dataPinjam)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $dataPinjam->buku->judul }}</td>
+                                        <td>{{ $dataPinjam->buku->penerbit }}</td>
+                                        <td>{{ $dataPinjam->buku->pengarang }}</td>
+                                        <td>{{ $dataPinjam->mahasiswa->nrp }}</td>
+                                        <td>{{ $dataPinjam->mahasiswa->nama }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($dataPinjam->tanggal_pinjam)->format('d F Y') }}
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::parse($dataPinjam->tanggal_kembali)->format('d F Y') }}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @if ($i == '0')
+                                    <td class="text-center" colspan="7">Tidak ada riwayat peminjaman</td>
+                                    @endif
+                                </tbody>
+                            </table>
                         </div>
-                        <!-- / Content -->
-
-                        <div class="content-backdrop fade"></div>
                     </div>
-                    <!-- Content wrapper -->
                 </div>
-
+                <!-- / Content -->
                 <!-- / Layout page -->
             </div>
 
             <!-- Overlay -->
             <div class="layout-overlay layout-menu-toggle"></div>
         </div>
-    </div>
-</div>
-<!-- / Layout wrapper -->
-@endsection
+        <!-- / Layout wrapper -->
+        @endsection

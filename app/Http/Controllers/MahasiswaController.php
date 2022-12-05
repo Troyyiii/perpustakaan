@@ -17,11 +17,7 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        // $mahasiswa = DB::table('mahasiswas')
-        //     ->orderBy('nrp')
-        //     ->get();
-
-        $mahasiswa = mahasiswa::all();
+        $mahasiswa = mahasiswa::paginate(10);
 
         return view('admin\admMhsIndex')->with([
             'mahasiswa' => $mahasiswa,
@@ -47,24 +43,9 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        // $nrp = $request->input('nrp');
-        // $nama = $request->input('nama');
-        // $kelas = $request->input('kelas');
-        // $no_hp = $request->input('no_hp');
-        // $tahun_angkatan = $request->input('tahun_angkatan');
-
-        // DB::table('mahasiswa')
-        //     ->insert([
-        //         'nrp' => $nrp,
-        //         'nama' => $nama,
-        //         'kelas' => $kelas,
-        //         'no_hp' => $no_hp,
-        //         'tahun_angkatan' => $tahun_angkatan,
-        //     ]);
-
         mahasiswa::create($request->all());
 
-        return redirect()->route('admMhsIndex')->with('success', 'Data telah berhasil ditambahkan!');
+        return redirect()->route('admMhsIndex')->with('success', 'Data Mahasiswa baru telah berhasil ditambahkan');
     }
 
     /**
@@ -76,6 +57,7 @@ class MahasiswaController extends Controller
     public function show($id)
     {
         $mahasiswa = mahasiswa::find($id);
+
         return view('admin\mhsEdit', compact('mahasiswa'));
     }
 
@@ -100,8 +82,10 @@ class MahasiswaController extends Controller
     public function update(Request $request, $id)
     {
         $mahasiswa = mahasiswa::find($id);
+
         $mahasiswa->update($request->all());
-        return redirect()->route('admMhsIndex')->with('success', 'Data telah berhasil diubah!');
+
+        return redirect()->route('admMhsIndex')->with('success', 'Data mahasiswa telah berhasil diubah');
     }
 
     /**
@@ -113,9 +97,29 @@ class MahasiswaController extends Controller
     public function destroy(Request $request, $id)
     {
         $mahasiswa = mahasiswa::find($id);
-        $mahasiswa->delete();
         $dataUser = User::find($request->id);
+
+        $mahasiswa->delete();
         $dataUser->delete();
-        return redirect()->route('admMhsIndex')->with('success', 'Data telah berhasil dihapus!');
+
+        return redirect()->route('admMhsIndex')->with('success', 'Data mahasiswa telah berhasil dihapus');
+    }
+
+    public function destroyHome(Request $request, $id)
+    {
+        $dataUser = User::find($id);
+        $mahasiswa = mahasiswa::where('user_id', '=', $dataUser->id)->first();
+
+        $mahasiswa->delete();
+        $dataUser->delete();
+
+        return redirect()->route('admIndex')->with('success', 'Data mahasiswa telah berhasil dihapus');
+    }
+
+    public function showProfile($id){
+        $data = user::find($id);
+        $mahasiswa = mahasiswa::where('user_id', '=', $data->id)->first();
+
+        return view('user\usrProfile')->with('profil', $mahasiswa);
     }
 }

@@ -1,7 +1,7 @@
 @extends('layout.sneatlay')
 
 @section('title')
-Perpustakaan | Admin Profile
+E-Library | Profile - Admin
 @endsection
 
 @section('body-content')
@@ -31,7 +31,7 @@ Perpustakaan | Admin Profile
                 <!-- Dashboard -->
                 <li class="menu-item active">
                     <a href="{{ route('admIndex') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <i class="menu-icon tf-icons bx bxs-home-circle"></i>
 
                         <div data-i18n="Analytics">Home</div>
                     </a>
@@ -39,23 +39,23 @@ Perpustakaan | Admin Profile
 
                 <li class="menu-item">
                     <a href="{{ route('admMhsIndex') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-layout"></i>
+                        <i class="menu-icon tf-icons bx bxs-graduation"></i>
 
-                        <div data-i18n="Analytics">Daftar Mahasiswa</div>
+                        <div data-i18n="Analytics">Data Mahasiswa</div>
                     </a>
                 </li>
 
                 <li class="menu-item">
                     <a href="{{ route('admBukuIndex') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-layout"></i>
+                        <i class="menu-icon tf-icons bx bxs-book-alt"></i>
 
-                        <div data-i18n="Analytics">Daftar Buku</div>
+                        <div data-i18n="Analytics">Data Buku</div>
                     </a>
                 </li>
 
                 <li class="menu-item">
                     <a href="{{ route('admPinjamIndex') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-layout"></i>
+                        <i class="menu-icon tf-icons bx bxs-archive"></i>
 
                         <div data-i18n="Analytics">Data Pinjam</div>
                     </a>
@@ -72,22 +72,19 @@ Perpustakaan | Admin Profile
                 id="layout-navbar">
                 <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
                     <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                        <i class="bx bx-menu bx-sm">
-                            <iconify-icon icon="akar-icons:three-line-horizontal" style="color: #696cff;" width="30"
-                                height="30"></iconify-icon>
-                        </i>
+                        <i class="bx bx-menu bx-sm"></i>
                     </a>
                 </div>
 
                 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                     <!-- Search -->
-                    <div class="navbar-nav align-items-center">
+                    {{-- <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <i class="bx bx-search fs-4 lh-0"></i>
                             <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
                                 aria-label="Search..." />
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- /Search -->
 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -96,7 +93,7 @@ Perpustakaan | Admin Profile
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                 data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ asset('template/sneat/assets/img/avatars/1.png') }}" alt
+                                    <img src="{{ asset('template/sneat/assets/img/avatars/default.png') }}" alt
                                         class="w-px-40 h-auto rounded-circle" />
                                 </div>
                             </a>
@@ -106,7 +103,7 @@ Perpustakaan | Admin Profile
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ asset('template/sneat/assets/img/avatars/1.png') }}"
+                                                    <img src="{{ asset('template/sneat/assets/img/avatars/default.png') }}"
                                                         alt class="w-px-40 h-auto rounded-circle" />
                                                 </div>
                                             </div>
@@ -148,35 +145,36 @@ Perpustakaan | Admin Profile
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Home/</span> Profile</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Home /</span> Profile</h4>
                     <form action="{{ url()->previous() }}" class="mb-4">
                         @csrf
-                        <button type="submit button" class="btn btn-primary"><iconify-icon icon="material-symbols:arrow-back-ios-rounded" style="color: white;"></iconify-icon> Kembali</button>
+                        <button type="submit button" class="btn btn-primary">
+                            <i class="menu-icon tf-icons bx bx-arrow-back"></i>Kembali</button>
                     </form>
 
                     <!-- Basic Layout -->
                     <div class="row justify-content-center">
                         <div class="col-9">
                             <div class="card mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">Data Profile</h5>
+                                <div class="card-header d-flex justify-content-center align-items-center">
+                                    <h4 class="mb-0">Data Profile</h4>
                                 </div>
                                 <div class="card-body">
                                     <form action="{{ route('admProfile', Auth::user()->id) }}">
                                         <div class="mb-3">
                                             <label class="form-label" for="name">Nama</label>
                                             <input type="text" class="form-control" id="name"
-                                                value="{{ $profil->name }}" disabled readonly/>
+                                                value="{{ $profil->name }}" disabled readonly />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="email">Email</label>
                                             <input type="text" class="form-control" id="email"
-                                                value="{{ $profil->email }}" disabled readonly/>
+                                                value="{{ $profil->email }}" disabled readonly />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="status">Status</label>
                                             <input type="text" class="form-control" id="status"
-                                            value="{{ $profil->status }}" disabled readonly/>
+                                                value="{{ $profil->status }}" disabled readonly />
                                         </div>
                                     </form>
                                 </div>

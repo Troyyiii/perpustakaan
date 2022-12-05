@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\buku;
+use App\Models\mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -17,14 +18,19 @@ class BukuController extends Controller
      */
     public function index()
     {
-        $buku = buku::all();
-
-        // dd(Auth::user()->level);
+        // $buku = buku::all()->published();
+        $buku = DB::table('bukus')->paginate(5);
 
         if(Auth::user()->level=='admin')
-            return view('admin\admBukuIndex', compact('buku'));
+            return view('admin\admBukuIndex')->with([
+                'buku' => $buku,
+                'i' => 0,
+            ]);
         else
-            return view('user\usrBukuIndex', compact('buku'));
+            return view('user\usrBukuIndex')->with([
+                'buku' => $buku,
+                'i' => 0,
+            ]);
     }
 
     /**
@@ -63,7 +69,7 @@ class BukuController extends Controller
 
         $data->save();
 
-        return redirect()->route('admBukuIndex')->with('success', 'Data telah berhasil ditambahkan!');
+        return redirect()->route('admBukuIndex')->with('success', 'Data buku baru telah berhasil ditambahkan');
     }
 
     /**
@@ -75,11 +81,15 @@ class BukuController extends Controller
     public function show($id)
     {
         $buku = buku::find($id);
+        $mahasiswa =mahasiswa::where('user_id', '=', Auth::user()->id)->first();
 
         if(Auth::user()->level=='admin')
             return view('admin\bukuEdit', compact('buku'));
         else
-            return view('user\usrBukuInfo', compact('buku'));
+            return view('user\usrBukuInfo')->with([
+                'buku' => $buku,
+                'mahasiswa' => $mahasiswa,
+            ]);
     }
 
     /**
@@ -103,8 +113,10 @@ class BukuController extends Controller
     public function update(Request $request, $id)
     {
         $buku = buku::find($id);
+
         $buku->update($request->all());
-        return redirect()->route('admBukuIndex')->with('success', 'Data telah berhasil diubah!');
+
+        return redirect()->route('admBukuIndex')->with('success', 'Data buku telah berhasil diubah');
     }
 
     /**
@@ -116,8 +128,10 @@ class BukuController extends Controller
     public function destroy($id)
     {
         $buku = buku::find($id);
+
         $buku->delete();
-        return redirect()->route('admBukuIndex')->with('success', 'Data telah berhasil dihapus!');
+
+        return redirect()->route('admBukuIndex')->with('success', 'Data buku telah berhasil dihapus');
     }
 
     public function search(Request $request){
@@ -128,8 +142,23 @@ class BukuController extends Controller
             ->paginate();
 
         if(Auth::user()->level=='admin')
-            return view('admin\admBukuIndex', ['buku' => $buku]);
+        return view('admin\admBukuIndex')->with([
+            'buku' => $buku,
+            'i' => 0,
+        ]);
         else
-            return view('user\usrBukuIndex', ['buku' => $buku]);
+        return view('user\usrBukuIndex')->with([
+            'buku' => $buku,
+            'i' => 0,
+        ]);
+    }
+
+    public function showUsr(){
+        $buku = buku::paginate(8);
+
+        return view('user\usrIndex')->with([
+            'buku' => $buku,
+            'i' => 0,
+        ]);
     }
 }

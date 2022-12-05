@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('kelas');
             $table->string('no_hp');
             $table->integer('tahun_angkatan');
+            $table->string('status')->default('Bebas');
             $table->timestamps();
         });
     }

@@ -1,7 +1,7 @@
 @extends('layout.sneatlay')
 
 @section('title')
-E-Library | Peminjaman Buku - User
+E-Library | Profile - User
 @endsection
 
 @section('body-content')
@@ -29,7 +29,7 @@ E-Library | Peminjaman Buku - User
 
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a href="{{ route('usrIndex') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bxs-home-circle"></i>
 
@@ -37,7 +37,7 @@ E-Library | Peminjaman Buku - User
                     </a>
                 </li>
 
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href="{{ route('usrBukuIndex') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bxs-book-alt"></i>
 
@@ -70,15 +70,15 @@ E-Library | Peminjaman Buku - User
 
                 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                     <!-- Search -->
-                    <form class="form-inline" action="{{ route('usrBukuIndexCari') }}" method="GET">
-                        <div class="navbar-nav align-items-center">
-                            <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
-                                <input type="text" class="form-control border-0 shadow-none" placeholder="Cari Buku..."
-                                    aria-label="Search..." value="{{ old('cari') }}" name="cari" id="cari" />
-                            </div>
+                    {{-- <form class="form-inline" action="{{ route('usrBukuIndexCari') }}" method="GET">
+                    <div class="navbar-nav align-items-center">
+                        <div class="nav-item d-flex align-items-center">
+                            <i class="bx bx-search fs-4 lh-0"></i>
+                            <input type="text" class="form-control border-0 shadow-none" placeholder="Cari Buku..."
+                                aria-label="Search..." value="{{ old('cari') }}" name="cari" id="cari" />
                         </div>
-                    </form>
+                    </div>
+                    </form> --}}
                     <!-- /Search -->
 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -139,99 +139,53 @@ E-Library | Peminjaman Buku - User
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Perpustakaan / Daftar Buku /</span>
-                        Peminjaman Buku</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Home /</span> Profile</h4>
+                    <form action="{{ url()->previous() }}" class="mb-4">
+                        @csrf
+                        <button type="submit button" class="btn btn-primary">
+                            <i class="menu-icon tf-icons bx bx-arrow-back"></i>Kembali</button>
+                    </form>
 
                     <!-- Basic Layout -->
                     <div class="row justify-content-center">
                         <div class="col-9">
                             <div class="card mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <form action="{{ url()->previous() }}" class="mb-4">
-                                        @csrf
-                                        <button type="submit button" class="btn btn-primary">
-                                            <i class="menu-icon tf-icons bx bx-arrow-back"></i>Kembali</button>
-                                    </form>
-                                    <h5 class="mb-0">Peminjaman Buku</h5>
+                                <div class="card-header d-flex justify-content-center align-items-center">
+                                    <h4 class="mb-0">Data Profile</h4>
                                 </div>
                                 <div class="card-body">
-                                    <div class="container d-flex justify-content-center">
-                                        <img src="{{ asset('upload/'.$buku->file_name) }}" alt="Cover Buku"
-                                            style="width: 200px; height: 300px; border-radius: 10px;">
-                                    </div>
-                                    <form class="form-check mt-4" action="{{ route('usrPinjam', $buku->id) }}"
-                                        method="POST">
-                                        @csrf
-                                        <div class="divider divider-primary">
-                                            <div class="divider-text">Data Buku</div>
-                                        </div>
-
+                                    <form action="{{ route('admProfile', Auth::user()->id) }}">
                                         <div class="mb-3">
-                                            <label for="judul" class="form-label">Judul </label>
-                                            <input type="text" name="judul" id="judul" value="{{ $buku->judul }}"
-                                                class="form-control" disabled readonly>
+                                            <label class="form-label" for="nrp">NRP</label>
+                                            <input type="text" class="form-control" id="nrp" value="{{ $profil->nrp }}"
+                                                disabled readonly />
                                         </div>
-
                                         <div class="mb-3">
-                                            <label for="pengarang" class="form-label">Pengarang </label>
-                                            <input type="text" name="pengarang" id="pengarang"
-                                                value="{{ $buku->pengarang }}" class="form-control" disabled readonly>
+                                            <label class="form-label" for="name">Nama</label>
+                                            <input type="text" class="form-control" id="name"
+                                                value="{{ $profil->nama }}" disabled readonly />
                                         </div>
-
                                         <div class="mb-3">
-                                            <label for="penerbit" class="form-label">Penerbit </label>
-                                            <input type="text" name="penerbit" id="penerbit"
-                                                value="{{ $buku->penerbit }}" class="form-control" disabled readonly>
+                                            <label class="form-label" for="kelas">Kelas</label>
+                                            <input type="text" class="form-control" id="kelas"
+                                                value="{{ $profil->kelas }}" disabled readonly />
                                         </div>
-
                                         <div class="mb-3">
-                                            <label for="tahun_terbit" class="form-label">Tahun Terbit </label>
-                                            <input type="text" name="tahun_terbit" id="tahun_terbit"
-                                                value="{{ $buku->tahun_terbit }}" class="form-control" disabled
-                                                readonly>
+                                            <label class="form-label" for="tahun_angkatan">Tahun Angkatan</label>
+                                            <input type="text" class="form-control" id="tahun_angkatan"
+                                                value="{{ $profil->tahun_angkatan }}" disabled readonly />
                                         </div>
-
                                         <div class="mb-3">
-                                            <label for="genre_buku" class="form-label">Genre Buku </label>
-                                            <input type="text" name="genre_buku" id="genre_buku"
-                                                value="{{ $buku->genre_buku }}" class="form-control" disabled readonly>
+                                            <label class="form-label" for="no_hp">No. Telepon</label>
+                                            <input type="text" class="form-control" id="no_hp"
+                                                value="{{ $profil->no_hp }}" disabled readonly />
                                         </div>
-
-                                        <div class="mb-3">
-                                            <label for="status" class="form-label">Status </label>
-                                            <input type="text" name="status" id="status" value="{{ $buku->status }}"
-                                                class="form-control" disabled readonly>
-                                        </div>
-
-                                        @if ($mahasiswa->status == 'Meminjam')
-                                        <div class="container text-danger">
-                                            <small class="fw-semibold ">Tidak bisa meminjam buku</small>
-                                            <p class="mb-0"><small>Anda sedang meminjam buku dan masih belum
-                                                    dikembalikan</small></p>
-                                        </div>
-                                        @endif
-
-                                        @if ($buku->status == 'Terpinjam')
-                                        <div class="container text-danger">
-                                            <small class="fw-semibold ">Buku sedang dipinjam</small>
-                                        </div>
-                                        @endif
-
-                                        <div class="row row-cols-auto mt-4">
-                                            <div class="col">
-                                                <button type="submit" class="btn btn-success" @if ($buku->status ==
-                                                    'Terpinjam' || $mahasiswa->status == 'Meminjam')
-                                                    disabled
-                                                    @endif onclick="return confirm('Apakah anda yakin ingin meminjam buku {{ $buku->judul }}?')"><i
-                                                        class="menu-icon tf-icons bx bxs-bookmark-alt-plus"></i>Pinjam</button>
-                                            </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <!-- / Layout page -->
             </div>
 

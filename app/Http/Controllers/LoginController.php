@@ -24,26 +24,28 @@ class LoginController extends Controller
 
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
-            if(auth()->user()->status === 'Actived') {
+            if(auth()->user()->status == 'Actived') {
                 if (auth()->user()->level == 'admin') {
                     return redirect()->route('admIndex');
                 }else if (auth()->user()->level == 'user') {
                     return redirect()->route('usrIndex');
                 }else{
-                    return redirect()->route('/');
+                    return redirect()->route('e-library');
                 }
             }else{
-                return redirect()->route('login')
-                ->with('errormsg', 'Akun belum terverifikasi');
+                return redirect()->route('waitingVerify');
             }
         }else{
-            return redirect()->route('login')
-                ->with('errormsg', 'Email atau password yang dimasukkan salah');
+            return redirect()->route('login')->with('errormsg', 'Email atau password yang dimasukkan salah');
         }
     }
 
     public function logout(){
         Auth::logout();
         return redirect('/login');
+    }
+
+    public function waiting(){
+        return view('waiting');
     }
 }

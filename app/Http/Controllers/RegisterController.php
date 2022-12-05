@@ -52,6 +52,6 @@ class RegisterController extends Controller
         $mhs_data->save();
 
         //return
-        return redirect('/login')->with('scsregistmsg', 'Akun telah berhasil dibuat, silahkan tunggu untuk diverifikasi');
+        return redirect('/login')->with('scsregistmsg', 'Akun berhasil dibuat, mohon tunggu sampai diverifikasi');
     }
 }

@@ -5,7 +5,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
-    --bs-blue: #0d6efd;
+    --bs-blue: #5f61e6;
     --bs-indigo: #6610f2;
     --bs-purple: #6f42c1;
     --bs-pink: #d63384;
@@ -55,7 +55,7 @@ body {
     font-weight: 400;
     line-height: 1.5;
     color: #858585;
-    background-color: #5f61e6;
+    background-color: #fff;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -2781,13 +2781,13 @@ fieldset:disabled .btn {
 }
 .btn-light {
     color: #000;
-    background-color: #edf5ff;
-    border-color: #edf5ff;
+    background-color: #5f61e6;
+    border-color: #5f61e6;
 }
 .btn-light:hover {
     color: #000;
-    background-color: #f0f7ff;
-    border-color: #eff6ff;
+    background-color: #4143b8;
+    border-color: #4143b8;
 }
 .btn-check:focus + .btn-light,
 .btn-light:focus {
@@ -3660,6 +3660,7 @@ fieldset:disabled .btn {
     justify-content: space-between;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    background-color: #5f61e6;
 }
 .navbar > .container,
 .navbar > .container-fluid,
@@ -6808,8 +6809,8 @@ fieldset:disabled .btn {
 .text-dark {
     color: #202942 !important;
 }
-.text-white {
-    color: #fff !important;
+.text-purple {
+    color: #5f61e6 !important;
 }
 .text-body {
     color: #858585 !important;

@@ -1,244 +1,215 @@
-<!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-<html lang="en">
+@extends('layout.sneatlay')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Perpustakaan User | List Peminjaman</title>
+@section('title')
+E-Library | History Peminjaman - User
+@endsection
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="{{ asset('template/adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('template/adminlte/dist/css/adminlte.min.css') }}">
-</head>
+@section('body-content')
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
 
-<body class="hold-transition sidebar-collapse layout-top-nav">
-    <div class="wrapper">
-
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-            <div class="container">
-                <a href="{{ route('usrIndex') }} " class="navbar-brand">
-                    {{-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-                    <span class="brand-text font-weight-light">E-Library</span>
+        <!-- Menu -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="app-brand demo">
+                <a href="{{ route('usrIndex') }}" class="app-brand-link">
+                    <span class="app-brand-logo demo">
+                        <img src="{{ asset('template/sneat/assets/img/favicon/lib.png') }}" alt="logo_perpus"
+                            style="width: 32px; height: 32px;">
+                    </span>
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2">E-Library</span>
                 </a>
 
-                <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
-                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-                    <!-- Left navbar links -->
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                                    class="fas fa-bars"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('usrIndex') }}" class="nav-link">Home</a>
-                        </li>
-                    </ul>
-
-                    <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                        <!-- SEARCH FORM -->
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                    aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </ul>
-                </div>
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
             </div>
-        </nav>
-        <!-- /.navbar -->
 
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="../../index3.html" class="brand-link">
-                {{-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-                <span class="brand-text font-weight-light">E-Library</span>
-            </a>
+            <div class="menu-inner-shadow"></div>
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    {{-- <div class="image">
-                    <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                </div> --}}
-                    <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
-                    </div>
-                </div>
+            <ul class="menu-inner py-1">
+                <!-- Dashboard -->
+                <li class="menu-item">
+                    <a href="{{ route('usrIndex') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bxs-home-circle"></i>
 
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                    with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <a href="{{ route('usrBukuIndex') }}" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
-                                <p>
-                                    Buku
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('usrPinjamIndex') }}" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
-                                <p>
-                                    Peminjaman
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('logout') }}" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
-                                <p>
-                                    Logout
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
+                        <div data-i18n="Analytics">Home</div>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="{{ route('usrBukuIndex') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bxs-book-alt"></i>
+
+                        <div data-i18n="Analytics">Daftar Buku</div>
+                    </a>
+                </li>
+
+                <li class="menu-item active">
+                    <a href="{{ route('usrPinjamIndex') }}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-history"></i>
+
+                        <div data-i18n="Analytics">History Peminjaman</div>
+                    </a>
+                </li>
+            </ul>
         </aside>
+        <!-- / Menu -->
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Home <small>User</small></h1>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
 
-            <!-- Main content -->
-            <div class="content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header text-center">
-                                    <h2>Data Pinjam</h2>
+            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                id="layout-navbar">
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                        <i class="bx bx-menu bx-sm"></i>
+                    </a>
+                </div>
+
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                    <!-- Search -->
+                    {{-- <form class="form-inline" action="{{ route('usrBukuIndexCari') }}" method="GET">
+                    <div class="navbar-nav align-items-center">
+                        <div class="nav-item d-flex align-items-center">
+                            <i class="bx bx-search fs-4 lh-0"></i>
+                            <input type="text" class="form-control border-0 shadow-none" placeholder="Cari Buku..."
+                                aria-label="Search..." value="{{ old('cari') }}" name="cari" id="cari" />
+                        </div>
+                    </div>
+                    </form> --}}
+                    <!-- /Search -->
+
+                    <ul class="navbar-nav flex-row align-items-center ms-auto">
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                                data-bs-toggle="dropdown">
+                                <div class="avatar avatar-online">
+                                    <img src="{{ asset('template/sneat/assets/img/avatars/default.png') }}" alt
+                                        class="w-px-40 h-auto rounded-circle" />
                                 </div>
-                                <div class="card-body">
-                                    {{-- @if ($message = Session::get('success'))
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar avatar-online">
+                                                    <img src="{{ asset('template/sneat/assets/img/avatars/default.png') }}"
+                                                        alt class="w-px-40 h-auto rounded-circle" />
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                                                <small class="text-muted">User</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('usrProfile', Auth::user()->id) }}">
+                                        <i class="bx bx-user me-2"></i>
+                                        <span class="align-middle">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('logout') }}">
+                                        <i class="bx bx-power-off me-2"></i>
+                                        <span class="align-middle">Log Out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--/ User -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Perpustakaan /</span> History
+                        Peminjaman
+                    </h4>
+                    <div class="row">
+                        <div class="mb-4 order-0">
+                            {{-- data buku --}}
+                            <div class="card">
+                                <h2 class="card-header text-center fw-bold">History Peminjaman</h2>
+                                @if ($message = Session::get('success'))
+                                <div class="container-fluid">
                                     <div class="alert alert-primary alert-dismissible fade show" role="alert">
                                         {{ $message }}
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                             aria-label="Close"></button>
                                     </div>
-                                    @endif --}}
-                                    <div class="container mx-auto">
-                                        <table class="table">
-                                            <thead class="table-info">
-                                                <tr>
-                                                    <th scope="col">No.</th>
-                                                    <th scope="col">Judul</th>
-                                                    <th scope="col">Penerbit</th>
-                                                    <th scope="col">Pengarang</th>
-                                                    <th scope="col">Tanggal Pinjam</th>
-                                                    <th scope="col">Tanggal Kembali</th>
-                                                    <th scope="col">Status</th>
-                                                </tr>
-                                            </thead>
+                                </div>
+                                @endif
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No.</th>
+                                                <th scope="col">Judul</th>
+                                                <th scope="col">Penerbit</th>
+                                                <th scope="col">Pengarang</th>
+                                                <th scope="col">Tanggal Pinjam</th>
+                                                <th scope="col">Tanggal Kembali</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-border-bottom-0">
                                             @foreach ($listPinjam as $i => $dataPinjam)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $dataPinjam->buku->judul }}</td>
                                                 <td>{{ $dataPinjam->buku->penerbit }}</td>
                                                 <td>{{ $dataPinjam->buku->pengarang }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($dataPinjam->tanggal_pinjam)->format('l, d F Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($dataPinjam->tanggal_pinjam)->format('l, d F Y') }}
+                                                </td>
                                                 @if ($dataPinjam->stats == 'Telah Dikembalikan')
-                                                    <td>{{ \Carbon\Carbon::parse($dataPinjam->tanggal_kembali)->format('l, d F Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($dataPinjam->tanggal_kembali)->format('l, d F Y') }}
+                                                </td>
                                                 @else
-                                                    <td>Belum Dikembalikan</td>
+                                                <td>Belum Dikembalikan</td>
                                                 @endif
                                                 <td>{{ $dataPinjam->stats }}</td>
-                                                {{-- <td>
-                                                    <div class="row">
-                                                        <div class="col-auto">
-                                                            <form action="{{ route('usrPinjamInfo', $dataPinjam->id) }}">
-                                                                @csrf
-                                                                <button type="submit button"
-                                                                    class="btn btn-success">Lihat detail</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </td> --}}
+                                                <input type="hidden" name="id" value="{{ ++$i }}">
                                             </tr>
                                             @endforeach
                                             @if ($i == '0')
-                                                <td class="text-center" colspan="7">Tidak ada terbaru</td>
+                                            <td class="text-center" colspan="7">Tidak ada terbaru</td>
                                             @endif
-                                        </table>
-                                    </div>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                        <!-- /.col-md-6 -->
+                        <!-- / Content -->
+
+                        <div class="content-backdrop fade"></div>
                     </div>
-                    <!-- /.row -->
-                </div><!-- /.container-fluid -->
+                    <!-- Content wrapper -->
+                </div>
+
+                <!-- / Layout page -->
             </div>
-            <!-- /.content -->
+
+            <!-- Overlay -->
+            <div class="layout-overlay layout-menu-toggle"></div>
         </div>
-        <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-
-        <!-- Main Footer -->
-        {{-- <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
-            reserved.
-        </footer> --}}
     </div>
-    <!-- ./wrapper -->
-
-    <!-- REQUIRED SCRIPTS -->
-
-    <!-- jQuery -->
-    <script src="{{ asset('template/adminlte/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('template/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('template/adminlte/dist/js/adminlte.min.js') }}"></script>
-</body>
-
-</html>
+</div>
+<!-- / Layout wrapper -->
+@endsection

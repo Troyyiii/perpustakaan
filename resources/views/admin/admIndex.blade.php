@@ -1,7 +1,7 @@
 @extends('layout.sneatlay')
 
 @section('title')
-Perpustakaan | Admin Home
+E-Library | Home - Admin
 @endsection
 
 @section('body-content')
@@ -31,7 +31,7 @@ Perpustakaan | Admin Home
                 <!-- Dashboard -->
                 <li class="menu-item active">
                     <a href="{{ route('admIndex') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <i class="menu-icon tf-icons bx bxs-home-circle"></i>
 
                         <div data-i18n="Analytics">Home</div>
                     </a>
@@ -39,23 +39,23 @@ Perpustakaan | Admin Home
 
                 <li class="menu-item">
                     <a href="{{ route('admMhsIndex') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-layout"></i>
+                        <i class="menu-icon tf-icons bx bxs-graduation"></i>
 
-                        <div data-i18n="Analytics">Daftar Mahasiswa</div>
+                        <div data-i18n="Analytics">Data Mahasiswa</div>
                     </a>
                 </li>
 
                 <li class="menu-item">
                     <a href="{{ route('admBukuIndex') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-layout"></i>
+                        <i class="menu-icon tf-icons bx bxs-book-alt"></i>
 
-                        <div data-i18n="Analytics">Daftar Buku</div>
+                        <div data-i18n="Analytics">Data Buku</div>
                     </a>
                 </li>
 
                 <li class="menu-item">
                     <a href="{{ route('admPinjamIndex') }}" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-layout"></i>
+                        <i class="menu-icon tf-icons bx bxs-archive"></i>
 
                         <div data-i18n="Analytics">Data Pinjam</div>
                     </a>
@@ -72,24 +72,21 @@ Perpustakaan | Admin Home
                 id="layout-navbar">
                 <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
                     <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                        <i class="bx bx-menu bx-sm">
-                            <iconify-icon icon="akar-icons:three-line-horizontal" style="color: #696cff;" width="30"
-                                height="30"></iconify-icon>
-                        </i>
+                        <i class="bx bx-menu bx-sm"></i>
                     </a>
                 </div>
 
                 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                     <!-- Search -->
-                    <form class="form-inline" action="{{ route('admBukuIndexCari') }}" method="GET">
-                        <div class="navbar-nav align-items-center">
-                            <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
-                                <input type="text" class="form-control border-0 shadow-none" placeholder="Cari Buku..."
-                                    aria-label="Search..." value="{{ old('cari') }}" name="cari" id="cari"/>
-                            </div>
+                    {{-- <form class="form-inline" action="{{ route('admBukuIndexCari') }}" method="GET">
+                    <div class="navbar-nav align-items-center">
+                        <div class="nav-item d-flex align-items-center">
+                            <i class="bx bx-search fs-4 lh-0"></i>
+                            <input type="text" class="form-control border-0 shadow-none" placeholder="Cari Buku..."
+                                aria-label="Search..." value="{{ old('cari') }}" name="cari" id="cari" />
                         </div>
-                    </form>
+                    </div>
+                    </form> --}}
                     <!-- /Search -->
 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -98,7 +95,7 @@ Perpustakaan | Admin Home
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                 data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ asset('template/sneat/assets/img/avatars/1.png') }}" alt
+                                    <img src="{{ asset('template/sneat/assets/img/avatars/default.png') }}" alt
                                         class="w-px-40 h-auto rounded-circle" />
                                 </div>
                             </a>
@@ -108,7 +105,7 @@ Perpustakaan | Admin Home
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ asset('template/sneat/assets/img/avatars/1.png') }}"
+                                                    <img src="{{ asset('template/sneat/assets/img/avatars/default.png') }}"
                                                         alt class="w-px-40 h-auto rounded-circle" />
                                                 </div>
                                             </div>
@@ -160,7 +157,7 @@ Perpustakaan | Admin Home
                                 <h5 class="card-header">Verifikasi Akun</h5>
                                 @if (session()->has('success'))
                                 <div class="container-fluid">
-                                    <div class="alert alert-success alert-dismissible" role="alert">
+                                    <div class="alert alert-info alert-dismissible" role="alert">
                                         <small>{{ session('success') }}</small>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                             aria-label="Close"></button>
@@ -177,7 +174,7 @@ Perpustakaan | Admin Home
                                                 <th>Kelas</th>
                                                 <th>Tahun Angkatan</th>
                                                 <th>Waktu Registrasi</th>
-                                                <th>Actions</th>
+                                                <th>Pilihan</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
@@ -194,16 +191,26 @@ Perpustakaan | Admin Home
                                                         <div class="col-auto">
                                                             <form action="{{ route('verifyMhs', $dataMhs->id) }}">
                                                                 @csrf
-                                                                <button type="submit button" class="btn btn-primary"
-                                                                    onclick="return confirm('Verifikasi akun ini?')">Verifikasi</button>
+                                                                <button type="submit button" class="btn btn-success"
+                                                                    onclick="return confirm('Verifikasi pembuatan akun {{ $dataMhs->mahasiswa->nama }} ({{ $dataMhs->mahasiswa->nrp }})')"><i
+                                                                        class="menu-icon tf-icons bx bxs-check-circle"></i>Verifikasi</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <form action="{{ route('deleteMhsI', $dataMhs->id) }}">
+                                                                @csrf
+                                                                <button type="submit button" class="btn btn-danger"
+                                                                    onclick="return confirm('Batalkan pengajuan verifikasi akun {{ $dataMhs->mahasiswa->nama }} ({{ $dataMhs->mahasiswa->nrp }})')"><i
+                                                                        class="menu-icon tf-icons bx bxs-trash-alt"></i>Batalkan</button>
                                                             </form>
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <input type="hidden" name="id" value="{{ ++$i }}">
                                             </tr>
                                             @endforeach
                                             @if ($i == '0')
-                                            <td class="text-center" colspan="7">Tidak ada terbaru</td>
+                                            <td class="text-center" colspan="7">Tidak ada data terbaru</td>
                                             @endif
                                         </tbody>
                                     </table>
@@ -221,7 +228,7 @@ Perpustakaan | Admin Home
                                 <h5 class="card-header">Verifikasi Pinjaman Buku</h5>
                                 @if (session()->has('successPjm'))
                                 <div class="container-fluid">
-                                    <div class="alert alert-success alert-dismissible" role="alert">
+                                    <div class="alert alert-info alert-dismissible" role="alert">
                                         <small>{{ session('successPjm') }}</small>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                             aria-label="Close"></button>
@@ -233,42 +240,51 @@ Perpustakaan | Admin Home
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Id Buku</th>
+                                                <th>Cover Buku</th>
                                                 <th>Judul</th>
                                                 <th>Pengarang</th>
                                                 <th>NRP Mahasiswa</th>
                                                 <th>Nama</th>
-                                                <th>Kelas</th>
                                                 <th>Tanggal Pinjam</th>
-                                                <th>Actions</th>
+                                                <th>Pilihan</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
                                             @foreach ($pendingPinjam as $y => $dataPjm)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $dataPjm->buku_id }}</td>
+                                                <td><img src="{{ asset('upload/'.$dataPjm->buku->file_name) }}"
+                                                        alt="Cover Buku" style="width: 60px; height: 80px;"></td>
                                                 <td>{{ $dataPjm->buku->judul }}</td>
                                                 <td>{{ $dataPjm->buku->pengarang }}</td>
                                                 <td>{{ $dataPjm->mahasiswa->nrp }}</td>
                                                 <td>{{ $dataPjm->mahasiswa->nama }}</td>
-                                                <td>{{ $dataPjm->mahasiswa->kelas }}</td>
-                                                <td>{{ $dataPjm->tanggal_pinjam }}</td>
+                                                <td>{{ $dataPjm->created_at->format('D M Y') }}</td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-auto">
                                                             <form action="{{ route('verifyPjm', $dataPjm->id) }}">
                                                                 @csrf
-                                                                <button type="submit button" class="btn btn-primary"
-                                                                    onclick="return confirm('Verifikasi peminjaman ini?')">Verifikasi</button>
+                                                                <button type="submit button" class="btn btn-success"
+                                                                    onclick="return confirm('Verifikasi peminjaman buku {{ $dataPjm->buku->judul}}')"><i
+                                                                        class="menu-icon tf-icons bx bxs-check-circle"></i>Verifikasi</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <form action="{{ route('deletePinjamI', $dataPjm->id) }}">
+                                                                @csrf
+                                                                <button type="submit button" class="btn btn-danger"
+                                                                    onclick="return confirm('Batalkan pengajuan peminjaman {{ $dataPjm->buku->judul}}')"><i
+                                                                        class="menu-icon tf-icons bx bxs-trash-alt"></i>Batalkan</button>
                                                             </form>
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <input type="hidden" name="id" value="{{ ++$y }}">
                                             </tr>
                                             @endforeach
                                             @if ($y == '0')
-                                            <td class="text-center" colspan="9">Tidak ada terbaru</td>
+                                            <td class="text-center" colspan="8">Tidak ada data terbaru</td>
                                             @endif
                                         </tbody>
                                     </table>
